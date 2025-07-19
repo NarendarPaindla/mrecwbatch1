@@ -1,7 +1,7 @@
 import streamlit as st
 txt=st.text_area(
     "Text to analyse",
-    "",placeholder="Write you answer here......",max_chars=100
+    "",placeholder="Write you answer here......",max_chars=1000
 )
 
 analyse_button=st.button('Analyze')
