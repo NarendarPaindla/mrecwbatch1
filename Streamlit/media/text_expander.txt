@@ -1,0 +1,5 @@
+Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
+
+JavaScript, often abbreviated as JS, is a programming language and core technology of the World Wide Web, alongside HTML and CSS.
+
+Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.

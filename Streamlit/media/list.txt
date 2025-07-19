@@ -1,0 +1,16 @@
+car_info = [{
+  "CAR_MAKE": "Porsche",
+  "CAR_MODEL": "911",
+  "CAR_MODEL_YEAR": 1988,
+  "CAR_PRICE": 3176
+}, {
+  "CAR_MAKE": "Chevrolet",
+  "CAR_MODEL": "Corvette",
+  "CAR_MODEL_YEAR": 1961,
+  "CAR_PRICE": 23741
+}, {
+  "CAR_MAKE": "Audi",
+  "CAR_MODEL": "S4",
+  "CAR_MODEL_YEAR": 2011,
+  "CAR_PRICE": 5533
+}]
