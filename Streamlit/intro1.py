@@ -11,4 +11,6 @@ table='''
 |---|---|-----|
 |25|no|25000|
 '''
+str="print('hello world')"
+st.code(str)
 st.markdown(table)

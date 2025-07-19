@@ -4,3 +4,7 @@ pip install streamlit
 streamlit run intro1.py
 
 https://www.markdownguide.org/cheat-sheet/
+
+for emojis
+
+https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
