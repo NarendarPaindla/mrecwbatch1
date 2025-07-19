@@ -1,0 +1,6 @@
+python -m venv myenv
+myenv\Scripts\activate
+pip install streamlit
+streamlit run intro1.py
+
+https://www.markdownguide.org/cheat-sheet/
