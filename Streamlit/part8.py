@@ -29,3 +29,21 @@ option = st.selectbox(
 )
 
 st.write(option)
+
+if option==car_info[0]['CAR_MAKE'] + " " + car_info[0]['CAR_MODEL']:
+  st.image('./media/Porsche.911.jpg',width=300,
+           caption="MODEL : "+ str(car_info[0]['CAR_MODEL_YEAR'])+" "+\
+             "PRICE : "+str(car_info[0]['CAR_PRICE']))
+if option == car_info[1]['CAR_MAKE'] + " " + car_info[1]['CAR_MODEL']:
+    st.image(
+        './media/Porsche.911.jpg',
+        width=300,
+        caption="MODEL : " + str(car_info[1]['CAR_MODEL_YEAR']) + " " +
+                "PRICE : " + str(car_info[1]['CAR_PRICE'])
+    )
+
+options=st.multiselect(
+  'what are your favorite companies',
+  ['Tesla','Microsoft','Amazon','Google'],
+  ['Tesla']
+)
