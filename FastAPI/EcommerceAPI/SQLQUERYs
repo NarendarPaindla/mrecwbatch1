@@ -1,0 +1,4 @@
+CREATE TABLE ping_test(id INT AUTO_INCREMENT PRIMARY KEY, message VARCHAR(50) NOT NULL)
+select *from ping_test;
+INSERT INTO ping_test (message) VALUES ('pong')
+DELETE FROM ping_test WHERE id = 1;

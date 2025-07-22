@@ -1,0 +1,4 @@
+pip install fastapi
+pip install uvicorn
+pip install python-dotenv
+pip install mysql-connector-python
