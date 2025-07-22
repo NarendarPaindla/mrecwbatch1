@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from db.connection import get_db_connection
+from routes.product import router as product_router
 app=FastAPI()
 
+app.include_router(product_router)
 @app.get("/")
 def root():
     return{"message":"Created basic structure successfully"}

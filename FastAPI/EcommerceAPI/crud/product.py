@@ -1,4 +1,4 @@
-from schemas.product import ProductCreate
+from schemas.product import ProductCreate,Product
 from db.connection import get_db_connection
 
 def create_product(payload: ProductCreate)-> Product:
