@@ -1,23 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from dotenv import load_dotenv
-import os
-import mysql
-from mysql.connector import Error
-load_dotenv()
-DB_CONFIG={
-    'host':os.getenv('DB_HOST'),
-    'port':os.getenv('DB_PORT'),
-    'user':os.getenv('DB_USER'),
-    'password':os.getenv('DB_PASSWORD'),
-    'database':os.getenv('DB_NAME'),
-}
+from db.connection import get_db_connection
 app=FastAPI()
-def get_db_connection():
-    try:
-        conn=mysql.connector.connect(**DB_CONFIG)
-        return conn
-    except Error as e:
-        raise HTTPException(status_code=500,detail=f"DB connection Error: {e}")
+
 @app.get("/")
 def root():
     return{"message":"Created basic structure successfully"}
