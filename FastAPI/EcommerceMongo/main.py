@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from db.connection import db
+from routes.product import router as product_router
 app=FastAPI()
-
+app.include_router(product_router)
 @app.get("/ping")
 def ping():
     record=db.ping_test.find_one({},{"_id":0,"message":1})
