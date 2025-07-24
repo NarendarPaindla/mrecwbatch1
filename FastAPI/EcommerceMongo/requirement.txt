@@ -1,0 +1,6 @@
+pip install fastapi
+pip install uvicorn
+pip install python-dotenv
+pip install pymongo
+
+https://www.youtube.com/watch?v=erAwljIIuHY

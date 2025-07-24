@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from schemas.product import ProductCreate,Product
 from db.connection import get_db_connection
-
+from typing import Optional
 def create_product(payload: ProductCreate)-> Product:
     conn=get_db_connection()
     cursor=conn.cursor()
@@ -36,6 +36,16 @@ def update_product(product_id: int, payload: ProductCreate) -> Product:
     conn.close()
     return Product(id=product_id, **payload.dict())
 
+def get_product_by_id(product_id: int) -> Product:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM products WHERE id = %s;", (product_id,))
+    row = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if not row:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return Product(**row)
 
 def delete_product(product_id: int) -> None:
     conn = get_db_connection()
@@ -47,3 +57,43 @@ def delete_product(product_id: int) -> None:
     conn.commit()
     cursor.close()
     conn.close()
+
+
+def list_products(
+    page: int = 1,
+    size: int = 10,
+    search: Optional[str] = None,
+    sort: Optional[str] = None
+) -> list[Product]:
+    offset = (page - 1) * size
+    # Base query
+    sql = "SELECT * FROM products"
+    params: list = []
+
+    # 1. Filtering
+    if search:
+        sql += " WHERE name LIKE %s OR description LIKE %s"
+        params += [f"%{search}%", f"%{search}%"]
+
+    # 2. Sorting
+    if sort == "price_asc":
+        sql += " ORDER BY price ASC"
+    elif sort == "price_desc":
+        sql += " ORDER BY price DESC"
+    else:
+        sql += " ORDER BY id ASC"
+
+    # 3. Pagination
+    sql += " LIMIT %s OFFSET %s"
+    params += [size, offset]
+
+    # Execute
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute(sql, tuple(params))
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return [Product(**row) for row in rows]
+
