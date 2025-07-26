@@ -4,7 +4,7 @@ from typing import List, Optional
 from schemas.product import Product
 
 class CategoryBase(BaseModel):
-    name: str = Field(..., min_length=1, description="Category name")
+    name: str = Field(..., min_length=1, max_length=100)
 
 class CategoryCreate(CategoryBase):
     pass

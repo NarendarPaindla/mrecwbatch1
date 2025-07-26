@@ -1,4 +1,5 @@
-from bson import ObjectId
+from typing import List, Optional
+from bson import ObjectId, Regex
 from fastapi import HTTPException
 from db.connection import db
 from schemas.product import ProductCreate, Product
@@ -19,9 +20,34 @@ def create_product(payload: ProductCreate) -> Product:
     doc = collection.find_one({"_id": result.inserted_id})
     return to_product(doc)
 
-def list_products() -> list[Product]:
-    docs = collection.find()
-    return [to_product(doc) for doc in docs]
+def list_products(
+    page: int = 1,
+    size: int = 10,
+    search: Optional[str] = None,
+    sort: Optional[str] = None
+) -> List[Product]:
+    if page < 1 or size < 1:
+        raise HTTPException(400, "`page` and `size` must be ≥ 1")
+
+    query = {}
+    if search:
+        regex = Regex(f".*{search}.*", "i")
+        query = {"$or": [{"name": regex}, {"description": regex}]}
+
+    cursor = collection.find(query)
+    # Sorting
+    if sort == "price_asc":
+        cursor = cursor.sort("price", 1)
+    elif sort == "price_desc":
+        cursor = cursor.sort("price", -1)
+    else:
+        cursor = cursor.sort("_id", 1)
+
+    # Pagination
+    skip = (page - 1) * size
+    cursor = cursor.skip(skip).limit(size)
+
+    return [to_product(doc) for doc in cursor]
 
 def get_product_by_id(product_id: str) -> Product:
     try:
